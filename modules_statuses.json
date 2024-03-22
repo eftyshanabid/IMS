@@ -1,0 +1,12 @@
+{
+    "Admin": true,
+    "Website": true,
+    "CMS": true,
+    "Plan": true,
+    "Language": true,
+    "Subscriber": true,
+    "Report": true,
+    "Frontend": true,
+    "IMS": true,
+    "Products": true
+}

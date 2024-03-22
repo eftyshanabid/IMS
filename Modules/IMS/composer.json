@@ -1,0 +1,31 @@
+{
+    "name": "nwidart/ims",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\IMS\\": "",
+            "Modules\\IMS\\App\\": "app/",
+            "Modules\\IMS\\Database\\Factories\\": "database/factories/",
+            "Modules\\IMS\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\IMS\\Tests\\": "tests/"
+        }
+    }
+}

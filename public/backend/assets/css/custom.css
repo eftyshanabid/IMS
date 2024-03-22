@@ -1,0 +1,52 @@
+.select2-container .select2-selection--single {
+	height: 34px !important;
+	line-height: 30px !important;
+}
+
+.select2-container--default .select2-selection--single {
+	border: 1px solid #dee2e6 !important;
+}
+
+.select2-selection__choice__display {
+	color: black !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+	color: red !important;
+}
+
+.select2-results {
+    display: block;
+    max-height: 350px !important;
+    overflow: scroll;
+}
+
+.swal-footer {
+	text-align: center !important;
+}
+
+.pull-right {
+	float: right;
+}
+
+.pull-left {
+	float: left;
+}
+
+.dataTables_wrapper .dt-buttons {
+	padding-left: 0% !important;
+}
+
+.dataTables_scroll {
+	margin-bottom: 10px;
+}
+
+.text-right{
+	text-align:right !important;
+}
+.text-left{
+	text-align:left !important;
+}
+.text-center{
+	text-align:center !important;
+}
