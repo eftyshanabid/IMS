@@ -1,0 +1,11 @@
+{
+    "name": "IMS",
+    "alias": "ims",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\IMS\\app\\Providers\\IMSServiceProvider"
+    ],
+    "files": []
+}
