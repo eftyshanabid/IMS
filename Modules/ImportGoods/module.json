@@ -1,0 +1,11 @@
+{
+    "name": "ImportGoods",
+    "alias": "importgoods",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\ImportGoods\\app\\Providers\\ImportGoodsServiceProvider"
+    ],
+    "files": []
+}

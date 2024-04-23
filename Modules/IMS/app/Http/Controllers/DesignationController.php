@@ -38,7 +38,7 @@ class DesignationController extends Controller
         try {
             if (request()->ajax()) {
                 return Datatables::of($designations)
-                    ->addIndexColumn()
+                ->addIndexColumn()  
                     ->editColumn('status', function ($designation) {
                         return ucfirst($designation->status);
                     })
@@ -69,16 +69,17 @@ class DesignationController extends Controller
             return $this->backWithError($th->getMessage());
         }
     }
-
+    
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
-    { {
+    {
+        {
             $title = "Create Designations";
             $code = uniqueCode(6, 'D-', 'designations', 'id');
-
+    
             return view('ims::designations.create', compact('title', 'code'));
         }
     }
@@ -136,7 +137,7 @@ class DesignationController extends Controller
      */
     public function update(Request $request, $id): RedirectResponse
     {
-
+        
         $this->validate($request, [
             'name' => 'required',
             'code' => "required",
@@ -162,7 +163,7 @@ class DesignationController extends Controller
      */
     public function destroy($id)
     {
-
+        
         DB::beginTransaction();
         try {
             $designation = Designations::findOrFail($id);
@@ -183,5 +184,5 @@ class DesignationController extends Controller
             ]);
         }
     }
-
+    
 }

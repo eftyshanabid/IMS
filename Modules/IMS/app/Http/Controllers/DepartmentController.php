@@ -22,6 +22,7 @@ class DepartmentController extends Controller
             ['actions', 'actions', 'text-center', 'width: 20% !important']
         );
     }
+
     /**
      * Display a listing of the resource.
      */

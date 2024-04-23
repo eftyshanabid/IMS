@@ -8,5 +8,9 @@
     "Report": true,
     "Frontend": true,
     "IMS": true,
-    "Products": true
+    "Products": true,
+    "ImportGoods": true,
+    "StoreInventory": true,
+    "Productions": true,
+    "Commercial": true
 }

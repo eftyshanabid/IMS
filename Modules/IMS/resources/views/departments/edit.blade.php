@@ -2,15 +2,13 @@
 
 @section('content')
     @php
-use Illuminate\Support\Facades\Request;
+        use Illuminate\Support\Facades\Request;
     @endphp
     <div class="content">
         <div class="container-fluid">
 
-            @include('components.breadcrumb', [
-    'item' => ['/' => languageValue(websiteSettings()->name), 'active' => 'Services'],
-    'pTitle' => $title
-])
+            @include('components.breadcrumb', ['item' => ['/'=>languageValue(websiteSettings()->name),'active'=>'Services'],
+            'pTitle' => $title])
 
             <div class="row">
                 <div class="col-12">
@@ -32,11 +30,11 @@ use Illuminate\Support\Facades\Request;
                                     <div class="card-body">
 
                                         {!! Form::model($department, [
-    'route' => ['departments.update', $department->id],
-    'method' => 'PUT',
-    'class' => 'form-horizontal',
-    'files' => false,
-]) !!}
+                                            'route' => ['departments.update', $department->id],
+                                            'method' => 'PUT',
+                                            'class' => 'form-horizontal',
+                                            'files' => false,
+                                            ]) !!}
 
                                         @include('ims::departments._form')
 
@@ -52,3 +50,4 @@ use Illuminate\Support\Facades\Request;
         </div>
     </div>
 @endsection
+

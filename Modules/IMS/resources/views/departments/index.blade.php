@@ -6,10 +6,8 @@
 
     <div class="content">
         <div class="container-fluid">
-            @include('components.breadcrumb', [
-    'item' => ['/' => languageValue(websiteSettings()->name), 'active' => 'CMS'],
-    'pTitle' => 'Department List'
-])
+            @include('components.breadcrumb', ['item' => ['/'=>languageValue(websiteSettings()->name),'active'=>'CMS'],
+            'pTitle' => 'Department List'])
 
             <div class="row">
                 <div class="col-12">
@@ -58,8 +56,8 @@
 @section('javascript')
     @include('yajra.js')
     <script>
-        function showDetails(userId) {
-            $('#dataBody').empty().load('{{url(Request()->route()->getPrefix() . "/department")}}/' + userId);
+        function showDetails(id) {
+            $('#dataBody').empty().load('{{url(Request()->route()->getPrefix()."/departments")}}/' + id);
             $('#showUserDetailsModal').modal('show');
         }
     </script>

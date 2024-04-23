@@ -1,0 +1,11 @@
+{
+    "name": "Commercial",
+    "alias": "commercial",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Commercial\\app\\Providers\\CommercialServiceProvider"
+    ],
+    "files": []
+}

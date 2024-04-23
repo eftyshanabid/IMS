@@ -2,14 +2,12 @@
 
 @section('content')
     @php
-use Illuminate\Support\Facades\Request;
+        use Illuminate\Support\Facades\Request;
     @endphp
     <div class="content">
         <div class="container-fluid">
-            @include('components.breadcrumb', [
-    'item' => ['/' => languageValue(websiteSettings()->name), 'active' => 'IMS'],
-    'pTitle' => $title
-])
+            @include('components.breadcrumb', ['item' => ['/'=>languageValue(websiteSettings()->name),'active'=>'IMS'],
+            'pTitle' => $title])
 
             <div class="row">
                 <div class="col-12">
@@ -29,15 +27,8 @@ use Illuminate\Support\Facades\Request;
                             <div class="col-xl-12 col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        {!! Form::open(
-    array(
-        'route' => 'departments.store',
-        'method' => 'POST',
-        'class' => '',
-        'files' => true,
-        'id' => 'departmentForm'
-    )
-) !!}
+                                        {!! Form::open(array('route' => 'departments.store','method'=>'POST',
+                                        'class'=>'','files'=>true,'id'=>'departmentForm')) !!}
 
                                         @include('ims::departments._form')
 

@@ -1,0 +1,11 @@
+{
+    "name": "StoreInventory",
+    "alias": "storeinventory",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\StoreInventory\\app\\Providers\\StoreInventoryServiceProvider"
+    ],
+    "files": []
+}

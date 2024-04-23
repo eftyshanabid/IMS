@@ -45,6 +45,9 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+
 @yield('javascript')
 <script !src>
     !(function (c) {
@@ -77,26 +80,26 @@
         @endforeach
         @endif
 
-        $(".select2").each(function() {
+        $(".select2").each(function () {
             $(this).select2({
-              dropdownParent: $(this).parent()
+                dropdownParent: $(this).parent()
             });
-          });
+        });
 
-          $(".select2bs4").each(function() {
+        $(".select2bs4").each(function () {
             $(this).select2({
-              theme: "bootstrap4",
-              dropdownParent: $(this).parent()
+                theme: "bootstrap4",
+                dropdownParent: $(this).parent()
             });
-          });
+        });
 
-          $(".select2bs4-tags").each(function() {
+        $(".select2bs4-tags").each(function () {
             $(this).select2({
-              tags: true,
-              // theme: "bootstrap4",
-              // dropdownParent: $(this).parent()
+                tags: true,
+                // theme: "bootstrap4",
+                // dropdownParent: $(this).parent()
             });
-          });
+        });
 
     })(window.jQuery);
 
@@ -232,5 +235,20 @@
                 $('#myModal').modal('show');
             });
     }
+
+    $('.mask-money').maskMoney(
+        {
+            thousands: '', decimal: '.', allowZero: true, allowEmpty: true
+        });
+
+    function formatMoneyMusking(number, digit, cCode) {
+        return number.toLocaleString('fullwide', {
+            maximumFractionDigits: digit,
+            style: 'currency',
+            currency: cCode,
+            useGrouping: true
+        }).replaceAll(cCode, '');
+    }
+
 </script>
 
