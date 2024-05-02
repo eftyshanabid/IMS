@@ -46,7 +46,7 @@ class AttributeOptionController extends Controller
                 return Datatables::of($attributeOptions)
                     ->addIndexColumn()
                     ->addColumn('attribute_code', function ($option) {
-                        return isset($option->attribute->code) ? $option->attribute->code : '';
+                        return isset ($option->attribute->code) ? $option->attribute->code : '';
                     })
                     ->filterColumn('attribute_code', function ($query, $keyword) {
                         return $query->whereHas('attribute', function ($query) use ($keyword) {
@@ -54,7 +54,7 @@ class AttributeOptionController extends Controller
                         });
                     })
                     ->addColumn('attribute_name', function ($option) {
-                        return isset($option->attribute->name) ? $option->attribute->name : '';
+                        return isset ($option->attribute->name) ? $option->attribute->name : '';
                     })
                     ->filterColumn('attribute_name', function ($query, $keyword) {
                         return $query->whereHas('attribute', function ($query) use ($keyword) {

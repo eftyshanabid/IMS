@@ -57,7 +57,7 @@ class ProductsController extends Controller
                 return Datatables::of($product)
                     ->addIndexColumn()
                     ->addColumn('category', function ($product) {
-                        return isset($product->category->name) ? $product->category->name : '';
+                        return isset ($product->category->name) ? $product->category->name : '';
                     })
                     ->filterColumn('category', function ($query, $keyword) {
                         return $query->whereHas('category', function ($query) use ($keyword) {
@@ -69,7 +69,7 @@ class ProductsController extends Controller
                             ->whereColumn('categories.id', 'products.category_id'));
                     })
                     ->addColumn('product_group', function ($product) {
-                        return isset($product->productGroup->name) ? $product->productGroup->name : '';
+                        return isset ($product->productGroup->name) ? $product->productGroup->name : '';
                     })
                     ->filterColumn('product_group', function ($query, $keyword) {
                         return $query->whereHas('productGroup', function ($query) use ($keyword) {
@@ -81,7 +81,7 @@ class ProductsController extends Controller
                             ->whereColumn('product_groups.id', 'products.product_group_id'));
                     })
                     ->addColumn('unit', function ($product) {
-                        return isset($product->productUnit->unit_name) ? $product->productUnit->unit_name : '';
+                        return isset ($product->productUnit->unit_name) ? $product->productUnit->unit_name : '';
                     })
                     ->filterColumn('unit', function ($query, $keyword) {
                         return $query->whereHas('productUnit', function ($query) use ($keyword) {
@@ -104,17 +104,23 @@ class ProductsController extends Controller
                             });
                     })
                     ->orderColumn('attributes', function ($query, $order) {
-                        $query = pleaseSortMe($query, $order, ProductAttribute::select('attributes.code')
-                            ->join('attribute_options', 'attribute_options.id', '=', 'product_attributes.attribute_option_id')
-                            ->join('attributes', 'attributes.id', '=', 'attribute_options.attribute_id')
-                            ->whereColumn('product_attributes.product_id', 'products.id')
-                            ->take(1)
+                        $query = pleaseSortMe(
+                            $query,
+                            $order,
+                            ProductAttribute::select('attributes.code')
+                                ->join('attribute_options', 'attribute_options.id', '=', 'product_attributes.attribute_option_id')
+                                ->join('attributes', 'attributes.id', '=', 'attribute_options.attribute_id')
+                                ->whereColumn('product_attributes.product_id', 'products.id')
+                                ->take(1)
                         );
 
-                        $query = pleaseSortMe($query, $order, ProductAttribute::select('attribute_options.name')
-                            ->join('attribute_options', 'attribute_options.id', '=', 'product_attributes.attribute_option_id')
-                            ->whereColumn('product_attributes.product_id', 'products.id')
-                            ->take(1)
+                        $query = pleaseSortMe(
+                            $query,
+                            $order,
+                            ProductAttribute::select('attribute_options.name')
+                                ->join('attribute_options', 'attribute_options.id', '=', 'product_attributes.attribute_option_id')
+                                ->whereColumn('product_attributes.product_id', 'products.id')
+                                ->take(1)
                         );
 
                         return $query;

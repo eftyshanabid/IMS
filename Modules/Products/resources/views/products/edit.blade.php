@@ -7,8 +7,10 @@
     <div class="content">
         <div class="container-fluid">
 
-            @include('components.breadcrumb', ['item' => ['/'=>languageValue(websiteSettings()->name),'active'=>'Services'],
-            'pTitle' => $title])
+            @include('components.breadcrumb', [
+                'item' => ['/' => languageValue(websiteSettings()->name), 'active' => 'Services'],
+                'pTitle' => $title,
+            ])
 
             <div class="row">
                 <div class="col-12">
@@ -19,9 +21,10 @@
                                 </div>
                                 <div class="col-xl-4">
                                     <div class="text-xl-end mt-xl-0 mt-2">
-                                        <a href="{{route('products.index')}}" class="btn btn-info mb-2 me-2"
-                                           data-toggle="tooltip" title="Products List"> <i class="mdi mdi-text
-                                           me-1"></i>{{translate('Products Lists')}}</a>
+                                        <a href="{{ route('products.index') }}" class="btn btn-info mb-2 me-2"
+                                            data-toggle="tooltip" title="Products List"> <i
+                                                class="mdi mdi-text
+                                           me-1"></i>{{ translate('Products Lists') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -34,7 +37,7 @@
                                             'method' => 'PUT',
                                             'class' => 'form-horizontal',
                                             'files' => false,
-                                            ]) !!}
+                                        ]) !!}
 
                                         @include('products::products._form_edit')
 
@@ -50,4 +53,3 @@
         </div>
     </div>
 @endsection
-

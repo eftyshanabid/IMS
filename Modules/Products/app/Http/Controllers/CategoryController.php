@@ -60,7 +60,7 @@ class CategoryController extends Controller
                         $department = '';
                         foreach ($category->departmentsList as $values) {
                             $department .= '<a href="javascript:void(0)"><span class="m-1 badge bg-primary btn-sm">' .
-                                (isset($values->department->name) ? $values->department->name : '') . '</span></a>';
+                                (isset ($values->department->name) ? $values->department->name : '') . '</span></a>';
                         }
                         return $department;
                     })
@@ -70,42 +70,48 @@ class CategoryController extends Controller
                         });
                     })
                     ->orderColumn('department', function ($query, $order) {
-                        return pleaseSortMe($query, $order, CategoryDepartment::select('departments.name')
-                            ->join('departments', 'departments.id', '=', 'categories_departments.department_id')
-                            ->whereColumn('categories_departments.category_id', 'categories.id')
-                            ->take(1)
+                        return pleaseSortMe(
+                            $query,
+                            $order,
+                            CategoryDepartment::select('departments.name')
+                                ->join('departments', 'departments.id', '=', 'categories_departments.department_id')
+                                ->whereColumn('categories_departments.category_id', 'categories.id')
+                                ->take(1)
                         );
                     })
-                    ->addColumn('attributes', function ($subCategory) use($attributeOptions){
-                        $attr ='';
-                        $attributes = isset($subCategory->attributes[0]) ? collect($subCategory->attributes)->sortBy('serial')->values()->all() : [];
-                        if (isset($attributes[0])) {
-                            $attr .='<ul>';
-                            foreach($attributes as $key => $categoryAttribute){
-                                $attr .='<li><strong>'.$categoryAttribute->attribute->name.':</strong> '.$attributeOptions->where('attribute_id', $categoryAttribute->attribute_id)->whereIn('id', (!empty($categoryAttribute->options) ? json_decode($categoryAttribute->options, true) : []))->pluck('name')->implode(', ').'</li>';
+                    ->addColumn('attributes', function ($subCategory) use ($attributeOptions) {
+                        $attr = '';
+                        $attributes = isset ($subCategory->attributes[0]) ? collect($subCategory->attributes)->sortBy('serial')->values()->all() : [];
+                        if (isset ($attributes[0])) {
+                            $attr .= '<ul>';
+                            foreach ($attributes as $key => $categoryAttribute) {
+                                $attr .= '<li><strong>' . $categoryAttribute->attribute->name . ':</strong> ' . $attributeOptions->where('attribute_id', $categoryAttribute->attribute_id)->whereIn('id', (!empty ($categoryAttribute->options) ? json_decode($categoryAttribute->options, true) : []))->pluck('name')->implode(', ') . '</li>';
                             }
-                            $attr .='</ul>';
+                            $attr .= '</ul>';
                         }
                         return $attr;
                     })
                     ->filterColumn('attributes', function ($query, $keyword) {
-                        return $query->whereHas('attributes.attribute', function ($query) use($keyword) {
-                            $query->where('name', 'LIKE', '%'.$keyword.'%');
-                        })->orWhereHas('attributes.attribute.options', function ($query) use($keyword) {
-                            $query->where('name', 'LIKE', '%'.$keyword.'%');
+                        return $query->whereHas('attributes.attribute', function ($query) use ($keyword) {
+                            $query->where('name', 'LIKE', '%' . $keyword . '%');
+                        })->orWhereHas('attributes.attribute.options', function ($query) use ($keyword) {
+                            $query->where('name', 'LIKE', '%' . $keyword . '%');
                         });
                     })
                     ->orderColumn('attributes', function ($query, $order) {
-                        return pleaseSortMe($query, $order, CategoryAttribute::select('attributes.code')
-                            ->join('attributes', 'attributes.id', '=', 'categories_attributes.attribute_id')
-                            ->whereColumn('categories_attributes.category_id', 'categories.id')
-                            ->take(1)
+                        return pleaseSortMe(
+                            $query,
+                            $order,
+                            CategoryAttribute::select('attributes.code')
+                                ->join('attributes', 'attributes.id', '=', 'categories_attributes.attribute_id')
+                                ->whereColumn('categories_attributes.category_id', 'categories.id')
+                                ->take(1)
                         );
                     })
                     ->addColumn('actions', function ($category) use ($options) {
                         $actions = '';
 
-                        $actions .='<a href="'.url('admin/categories/'.$category->id.'/create-attributes').'" class="btn btn-success btn-sm m-1"><i class="mdi mdi-sitemap"></i></a>';
+                        $actions .= '<a href="' . url('admin/categories/' . $category->id . '/create-attributes') . '" class="btn btn-success btn-sm m-1"><i class="mdi mdi-sitemap"></i></a>';
 
                         if ($options['category-edit']) {
                             $url = route('categories.edit', $category->id);
@@ -117,7 +123,7 @@ class CategoryController extends Controller
                         }
                         return $actions;
                     })
-                    ->rawColumns(['attributes','department', 'actions'])
+                    ->rawColumns(['attributes', 'department', 'actions'])
                     ->make(true);
             }
 
@@ -285,7 +291,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($category_id);
         $data = [
-            'title' => "Attributes for #".$category->name,
+            'title' => "Attributes for #" . $category->name,
             'subcategory' => $category,
             'attributes' => Attribute::has('options')->with(['options'])->get(),
             'categoryAttributes' => CategoryAttribute::where('category_id', $category->id)->pluck('attribute_id')->toArray(),
@@ -301,7 +307,7 @@ class CategoryController extends Controller
             $category = Category::findOrFail($id);
             $category->fill($request->all())->save();
 
-            if(isset($request->productAttributes[0])){
+            if (isset($request->productAttributes[0])) {
                 foreach ($request->productAttributes as $key => $attribute_id) {
                     CategoryAttribute::updateOrCreate([
                         'category_id' => $category->id,
@@ -317,14 +323,14 @@ class CategoryController extends Controller
                 ->whereNotIn('attribute_id', $request->productAttributes)
                 ->delete();
 
-            $productAttributes = ProductAttribute::whereHas('attributeOption.attribute.categories', function($query) use($category){
+            $productAttributes = ProductAttribute::whereHas('attributeOption.attribute.categories', function ($query) use ($category) {
                 return $query->where('category_id', $category->id);
             })->get();
 
-            if(isset($productAttributes[0])){
-                foreach($productAttributes as $key => $productAttribute){
+            if (isset($productAttributes[0])) {
+                foreach ($productAttributes as $key => $productAttribute) {
                     $serial = CategoryAttribute::where('category_id', $category->id)
-                        ->whereHas('attribute.options', function($query) use($productAttribute){
+                        ->whereHas('attribute.options', function ($query) use ($productAttribute) {
                             return $query->where('id', $productAttribute->attribute_option_id);
                         })
                         ->first();
@@ -335,7 +341,7 @@ class CategoryController extends Controller
 
             DB::commit();
             return $this->backWithSuccess('Sub Category Attributes have benn updated. ');
-        }catch (\Throwable $th){
+        } catch (\Throwable $th) {
             DB::rollback();
             return $this->backWithError($th->getMessage());
         }
